@@ -70,7 +70,8 @@ and an attacker-behaviour classifier.
 \textbf{ML-KEM on constrained devices.} The pqm4 framework~\cite{pqm4} is the
 de facto platform for benchmarking post-quantum schemes on Arm Cortex-M4
 microcontrollers. On the ESP32, Azevedo \emph{et al.}~\cite{azevedo} selectively
-parallelise ML-KEM across the chip's two cores to reduce its runtime. Nagy
+parallelise ML-KEM-512 across the chip's two cores, reducing the total
+KeyGen+Encaps+Decaps time from 27.7\,ms to 19.6\,ms (about 1.41$\times$). Nagy
 \emph{et al.}~\cite{nagy} report that their attempts to run ML-KEM on ESP32 and
 other microcontroller boards were unsuccessful due to memory constraints, and
 benchmark on a Raspberry Pi 4B instead. In contrast, we run the portable PQClean
