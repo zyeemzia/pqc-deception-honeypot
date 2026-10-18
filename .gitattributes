@@ -1,0 +1,4 @@
+firmware/src/*.c linguist-vendored
+firmware/src/*.h linguist-vendored
+firmware/src/randombytes_esp32.c -linguist-vendored
+firmware/src/secrets.example.h -linguist-vendored
