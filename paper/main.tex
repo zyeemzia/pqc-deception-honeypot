@@ -111,6 +111,15 @@ The gateway firmware (Arduino-ESP32, PlatformIO) links the PQClean
 handshake, the gateway generates a key pair, sends the 1184-byte public key,
 receives the 1088-byte ciphertext, decapsulates, and returns SHA3-256 of the
 shared secret as key confirmation. A downgrade request is refused and logged.
+Fig.~\ref{fig:board} shows the device used for all measurements.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.5\columnwidth]{esp32_testbed.jpg}
+\caption{The ESP32 DevKit (ESP-32D module, CP2102 USB-UART) that ran every
+ML-KEM-768 measurement and served the real gateway.}
+\label{fig:board}
+\end{figure}
 
 \subsection{On-device cost}
 Table~\ref{tab:hw} reports 100 consecutive KeyGen/Encaps/Decaps runs at
