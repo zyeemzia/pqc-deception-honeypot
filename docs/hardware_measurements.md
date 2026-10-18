@@ -6,7 +6,7 @@ All numbers below were measured on the physical device; raw data is in `eval/`.
 
 | Item | Value |
 |---|---|
-| Board | ESP32 DevKit (ESP-WROOM-32, CP2102 USB-UART) |
+| Board | ESP32 DevKit with ESP-32D module (WiFi + BT + BLE), CP2102 USB-UART |
 | CPU | Xtensa dual-core, 240 MHz (benchmark pinned to core 1) |
 | Framework | Arduino-ESP32 via PlatformIO (espressif32 7.1.3) |
 | ML-KEM implementation | PQClean `ml-kem-768/clean` (portable C, no assembly) |
@@ -41,3 +41,7 @@ Key confirmation: server returns SHA3-256(shared secret); client verifies.
 - 100/100 key confirmations succeeded; 25/100 handshakes exceeded 1 s.
 - The network was a shared institutional 2.4 GHz WLAN; latency is dominated by the
   link, not by ML-KEM computation (~20 ms on device).
+
+## Device used for all measurements
+
+<img src="esp32_setup.jpg" alt="The ESP32 DevKit (ESP-32D module) used for all measurements, connected over USB" width="360">

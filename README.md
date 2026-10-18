@@ -26,6 +26,11 @@ attempts, and absorb handshake floods, while keeping legitimate clients on the r
 
 ![Policy comparison](figures/policy_comparison.png)
 
+<p align="center">
+  <img src="docs/esp32_setup.jpg" alt="The ESP32 DevKit (ESP-32D module) used for all measurements, connected over USB" width="300"><br>
+  <em>The ESP32 (ESP-32D module) that ran every ML-KEM-768 measurement in this repository.</em>
+</p>
+
 ## Architecture
 
 ```
