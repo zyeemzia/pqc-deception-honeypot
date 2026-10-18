@@ -1,0 +1,10 @@
+qrdqn seed=42 steps=200000 done in 9.6 min
+qrdqn seed=123 steps=200000 done in 10.2 min
+qrdqn seed=456 steps=200000 done in 10.2 min
+qrdqn seed=789 steps=200000 done in 10.2 min
+qrdqn seed=1024 steps=200000 done in 10.3 min
+dqn seed=42 steps=200000 done in 4.6 min
+dqn seed=123 steps=200000 done in 4.5 min
+dqn seed=456 steps=200000 done in 4.6 min
+dqn seed=789 steps=200000 done in 4.7 min
+dqn seed=1024 steps=200000 done in 4.6 min

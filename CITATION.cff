@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite it as below."
+title: "RL-Adaptive Deception for Protecting Post-Quantum IoT Gateways from Reconnaissance and Downgrade Attacks"
+authors:
+  - family-names: "Bin Zia"
+    given-names: "Zyeem"
+    alias: "zyeemzia"
+version: 1.0.0
+date-released: 2026-10-20
+license: MIT
+repository-code: "https://github.com/zyeemzia/pqc-deception-honeypot"
+keywords:
+  - post-quantum cryptography
+  - ML-KEM
+  - cyber deception
+  - reinforcement learning
+  - IoT security
+  - ESP32

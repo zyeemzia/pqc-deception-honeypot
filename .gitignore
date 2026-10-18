@@ -1,0 +1,7 @@
+.venv/
+.pio/
+firmware/.pio/
+firmware/src/secrets.h
+third_party/
+__pycache__/
+*.pyc

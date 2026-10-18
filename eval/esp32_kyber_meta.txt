@@ -1,0 +1,4 @@
+# cpu_mhz=240
+# peak_stack_bytes=15096
+# pk=1184 sk=2400 ct=1088 ss=32
+# DONE
