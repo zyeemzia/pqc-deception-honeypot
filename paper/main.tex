@@ -42,8 +42,9 @@ post-quantum cryptography, ML-KEM, cyber deception, reinforcement learning, IoT 
 
 \section{Introduction}
 NIST standardised ML-KEM as FIPS~203 in 2024~\cite{fips203}, and IoT
-deployments are beginning to adopt post-quantum key establishment. Much work
-evaluates the cost of running ML-KEM on constrained hardware; less attention has
+deployments will need to migrate to post-quantum key establishment. Prior work
+evaluates the cost of running ML-KEM on constrained hardware~\cite{pqm4,azevedo,nagy};
+less attention has
 been paid to the operational attack surface of the handshake itself. Before
 authentication, an attacker can (i) fingerprint the service to confirm the device
 and implementation, (ii) attempt to downgrade to a classical key exchange during
@@ -99,7 +100,11 @@ ML-KEM-768 and refuses classical fallback. The attacker can connect to the
 gateway, grab its banner, perform protocol-conformant handshakes as timing probes,
 request a classical ECDH fallback, and flood handshake requests. The attacker
 cannot break ML-KEM, compromise firmware, or observe the defender's state.
-Physical and side-channel attacks are out of scope. The defender runs at the
+Physical and side-channel attacks are out of scope. Because the device refuses
+classical fallback, a downgrade request that reaches it cannot succeed, but the
+refusal confirms the device's policy to the attacker; answering it at a decoy
+withholds that information and records the attempt as an indicator of compromise.
+The defender runs at the
 gateway, observes each request with limited source history, and may route it to
 the real service, a low- or high-fidelity decoy, a throttled real service, or
 block the source.
@@ -173,16 +178,40 @@ episode progress, and whether the attacker suspects deception.
 throttle, or block. An attacker routed to a decoy detects it with probability
 0.25 (low fidelity) or 0.05 (high fidelity) per interaction and then leaves.
 
-\textbf{Reward.} Positive terms for attacker engagement, recon deflection and
-downgrade capture; negative terms for recon leakage, downgrade requests reaching
-the device, floods reaching the device, misrouting or blocking legitimate
-clients, and legitimate-client latency. Latency is sampled from the 100 measured
-WiFi handshakes.
+\textbf{Reward.} Table~\ref{tab:reward} lists every term. Legitimate-client
+latency is sampled from the 100 measured WiFi handshakes; throttling adds 500\,ms.
+Each attacker stage lasts 3--7 requests, drawn uniformly.
+
+\begin{table}[t]
+\centering
+\caption{Reward terms (per request).}
+\label{tab:reward}
+\begin{tabular}{lr}
+\toprule
+Event & Reward \\
+\midrule
+Attacker interacts with a decoy & $+1.0$ \\
+Recon/probe answered by a decoy & $+2.0$ \\
+Downgrade attempt captured at a decoy & $+4.0$ \\
+Attacker blocked & $+1.0$ \\
+High-fidelity decoy used & $-0.3$ \\
+Recon/probe answered by the real device & $-3.0$ \\
+Downgrade request reaches the real device & $-2.0$ \\
+Flood reaches the real device (throttled) & $-5.0$ ($-1.0$) \\
+Legitimate client served & $+0.5$ \\
+Legitimate client sent to a decoy & $-4.0$ \\
+Legitimate client blocked & $-6.0$ \\
+Legitimate-client latency & $-1.0$ per second \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{Agents.} QR-DQN (50 quantiles) and DQN from SB3-Contrib and
 Stable-Baselines3~\cite{sb3} with a $128\times128$ MLP, $2\times10^5$ steps,
 learning rate $5\times10^{-4}$, $\gamma=0.97$, batch 128, replay buffer $10^5$,
-$\epsilon$ annealed to 0.02 over 30\% of training. Environments follow the
+5{,}000 warm-up steps, training every 4 steps, target update every 2{,}000 steps,
+$\epsilon$ annealed to 0.02 over 30\% of training. Training took about 10\,min
+(QR-DQN) and 4.6\,min (DQN) per seed on a 2-core laptop CPU. Environments follow the
 Gymnasium API~\cite{gymnasium}.
 
 \textbf{Baselines.} No deception (always real), random routing, and a static rule
@@ -202,7 +231,10 @@ outperforms the static rule in return ($p<0.0001$) and recon deflection
 (98.6\% vs 76.0\%, $p=0.0001$), captures more downgrade attempts (42.7\% vs
 32.2\%), and keeps attackers engaged for 15.6 vs 4.1 steps, largely by using the
 high-fidelity decoy: the static rule's low-fidelity decoy is detected in almost
-every episode (0.999 detections per episode). The cost is a 0.6\%
+every episode (0.999 detections per episode). Measured over all held-out
+episodes, QR-DQN sends 95.7\% of attacker requests to the high-fidelity decoy and
+keeps 98.5\% of legitimate requests on the real service (0.9\% are throttled and
+0.6\% misrouted to a decoy). The cost is a 0.6\%
 legitimate false-positive rate versus 0\% for the static rule ($p=0.0115$).
 QR-DQN and DQN reach similar returns ($p=0.14$); QR-DQN has fewer false positives
 (0.6\% vs 3.0\%, $p=0.0085$).
@@ -263,7 +295,8 @@ and legitimate clients using 14 features (request counts and fractions, rate
 statistics, request-sequence entropy, transitions, first request). With 5-fold
 stratified cross-validation repeated over five seeds, Random Forest reached
 macro-F1 $0.921\pm0.007$ and XGBoost $0.912\pm0.008$. Scanners were hardest to
-separate (F1 0.877) because they resemble the first stage of the APT profile.
+separate (Random Forest F1 0.877 for seed 42) because they resemble the first
+stage of the APT profile.
 Classes are mapped to ATT\&CK: T1595 Active Scanning, T1562.010 Downgrade Attack,
 and T1499 Endpoint Denial of Service. These scores are on simulated sessions and
 validate the pipeline, not real-world detection.
