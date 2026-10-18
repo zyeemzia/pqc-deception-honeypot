@@ -10,7 +10,7 @@
 \title{RL-Adaptive Deception for Protecting Post-Quantum IoT Gateways from Reconnaissance and Downgrade Attacks}
 
 \author{\IEEEauthorblockN{Zyeem Bin Zia}
-\IEEEauthorblockA{[AFFILIATION]\\
+\IEEEauthorblockA{Independent Researcher, Bangladesh\\
 zyeemzia@gmail.com}}
 
 \maketitle
@@ -67,11 +67,17 @@ and an attacker-behaviour classifier.
 \end{itemize}
 
 \section{Related Work}
-\textbf{ML-KEM on constrained devices.} Portable and optimised ML-KEM/Kyber
-implementations have been benchmarked on microcontrollers [VERIFY: add 2--3
-citations for ML-KEM/Kyber on ESP32 / Cortex-M4 / AVR that you have read]. Our
-measurements use the unoptimised PQClean implementation and serve as a baseline
-cost for the defender rather than as an optimisation contribution.
+\textbf{ML-KEM on constrained devices.} The pqm4 framework~\cite{pqm4} is the
+de facto platform for benchmarking post-quantum schemes on Arm Cortex-M4
+microcontrollers. On the ESP32, Azevedo \emph{et al.}~\cite{azevedo} selectively
+parallelise ML-KEM across the chip's two cores to reduce its runtime. Nagy
+\emph{et al.}~\cite{nagy} report that their attempts to run ML-KEM on ESP32 and
+other microcontroller boards were unsuccessful due to memory constraints, and
+benchmark on a Raspberry Pi 4B instead. In contrast, we run the portable PQClean
+ML-KEM-768 implementation on an ESP32 in a dedicated task with an enlarged stack
+and report its measured peak stack (15.1\,KB). Our measurements are a baseline
+cost for the defender, not an optimisation contribution, and we do not claim to be
+the first to run ML-KEM on this platform.
 
 \textbf{RL for honeypots and deception.} HoneyIoT~\cite{honeyiot} formulates an
 adaptive IoT honeypot as an MDP learned with RL. Our environment adopts a similar
@@ -280,7 +286,17 @@ implementations.
 Constrained-Node Networks,'' RFC 7228, IETF, May 2014.
 \bibitem{pqclean} M. J. Kannwischer, P. Schwabe, D. Stebila, and T. Wiggers,
 ``Improving software quality in cryptography standardization projects,'' in
-Proc. IEEE EuroS\&P Workshops, 2022. [VERIFY]
+Proc. IEEE EuroS\&P Workshops (SSR), 2022. IACR ePrint 2022/337.
+\bibitem{pqm4} M. J. Kannwischer \emph{et al.}, ``pqm4: Post-quantum crypto
+library for the ARM Cortex-M4,'' \url{https://github.com/mupq/pqm4}.
+\bibitem{azevedo} B. L. Azevedo, V. Lagrota, and M. V. Ribeiro, ``Multicore
+implementation of ML-KEM on embedded devices,'' in Proc. 25th Simp\'osio
+Brasileiro de Ciberseguran\c{c}a (SBSeg), 2025, pp. 659--675,
+doi: 10.5753/sbseg.2025.9783.
+\bibitem{nagy} N. Nagy, S. Alnemer, L. M. Alshuhail, H. Alobiad, T. Almulla,
+F. A. Alrumaihi, N. Ghadra, and M. Nagy, ``Module-lattice-based key-encapsulation
+mechanism performance measurements,'' \emph{Sci}, vol. 7, no. 3, art. 91, 2025,
+doi: 10.3390/sci7030091.
 \bibitem{qrdqn} W. Dabney, M. Rowland, M. G. Bellemare, and R. Munos,
 ``Distributional reinforcement learning with quantile regression,'' in Proc.
 AAAI, 2018.
@@ -290,12 +306,15 @@ reinforcement learning,'' \emph{Nature}, vol. 518, pp. 529--533, 2015.
 N. Dormann, ``Stable-Baselines3: Reliable reinforcement learning
 implementations,'' \emph{JMLR}, vol. 22, no. 268, pp. 1--8, 2021.
 \bibitem{gymnasium} M. Towers \emph{et al.}, ``Gymnasium: A standard interface for
-reinforcement learning environments,'' arXiv:2407.17032, 2024. [VERIFY]
+reinforcement learning environments,'' in Proc. NeurIPS Datasets and
+Benchmarks Track, 2025. arXiv:2407.17032.
 \bibitem{attack} B. E. Strom \emph{et al.}, ``MITRE ATT\&CK: Design and
 Philosophy,'' MITRE Tech. Rep., 2018.
-\bibitem{honeyiot} [VERIFY authors/pages] ``HoneyIoT: Adaptive high-interaction
-honeypot for IoT devices through reinforcement learning,'' in Proc. ACM WiSec, 2023.
-\bibitem{quantumguard} [VERIFY authors/pages] ``QuantumGuard: A post-quantum
+\bibitem{honeyiot} C. Guan, H. Liu, G. Cao, S. Zhu, and T. La Porta, ``HoneyIoT:
+Adaptive high-interaction honeypot for IoT devices through reinforcement
+learning,'' in Proc. 16th ACM Conf. Security and Privacy in Wireless and Mobile
+Networks (WiSec), 2023, doi: 10.1145/3558482.3590195.
+\bibitem{quantumguard} D. Z. Alotaibe, ``QuantumGuard: A post-quantum
 resilient deception-driven framework for proactive threat hunting and cognitive
 honeynet orchestration in 6G-enabled cyber-physical systems,'' \emph{IJACSA},
 vol. 17, no. 6, 2026.
