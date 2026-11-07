@@ -1,0 +1,13 @@
+Third-party notices for pqc-deception-honeypot
+
+This project is released under the MIT License (see LICENSE).
+
+The following files are not original to this project and remain under their
+original licenses:
+
+PQClean
+  Files in firmware/src copied from PQClean: the ML-KEM-768 "clean"
+  implementation, common/fips202, randombytes.h, compat.h and
+  crypto_declassify.h.
+  Upstream: https://github.com/PQClean/PQClean
+  These files remain under their original PQClean licenses.
