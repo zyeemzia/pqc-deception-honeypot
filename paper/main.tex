@@ -72,8 +72,8 @@ and an attacker-behaviour classifier.
 \textbf{ML-KEM on constrained devices.} The pqm4 framework~\cite{pqm4} is the
 de facto platform for benchmarking post-quantum schemes on Arm Cortex-M4
 microcontrollers. On the ESP32, Segatz and Al Hafiz~\cite{segatz} accelerate
-the pre-standard CRYSTALS-Kyber by exploiting the chip's dual-core architecture
-and hardware accelerators, and Azevedo \emph{et al.}~\cite{azevedo} selectively
+the pre-standard CRYSTALS-Kyber by partitioning it across the chip's two cores
+and using its SHA and AES coprocessors, and Azevedo \emph{et al.}~\cite{azevedo} selectively
 parallelise ML-KEM-512 across the chip's two cores, reducing the total
 KeyGen+Encaps+Decaps time from 27.7\,ms to 19.6\,ms (about 1.41$\times$). Nagy
 \emph{et al.}~\cite{nagy} report that their attempts to run ML-KEM on ESP32 and
@@ -92,7 +92,7 @@ and adds legitimate traffic, so that the defender faces a false-positive trade-o
 \textbf{Post-quantum deception frameworks.} QuantumGuard~\cite{quantumguard}
 combines RL-driven deception with CRYSTALS-Kyber/Dilithium to secure an
 intelligence-sharing channel between defender organisations, with cryptographic
-costs measured on server-class hardware. Our work instead protects the
+costs reported for an x86-64/AVX2 configuration. Our work instead protects the
 key-establishment endpoint of a single constrained device and measures its
 cryptographic cost on that device.
 
@@ -342,7 +342,7 @@ responsibility for the content.
 Constrained-Node Networks,'' RFC 7228, IETF, May 2014.
 \bibitem{pqclean} M. J. Kannwischer, P. Schwabe, D. Stebila, and T. Wiggers,
 ``Improving software quality in cryptography standardization projects,'' in
-Proc. IEEE EuroS\&P Workshops (SSR), 2022. IACR ePrint 2022/337.
+Proc. IEEE EuroS\&P Workshops (SSR), 2022, pp. 19--30. IACR ePrint 2022/337.
 \bibitem{pqm4} M. J. Kannwischer \emph{et al.}, ``pqm4: Post-quantum crypto
 library for the ARM Cortex-M4,'' \url{https://github.com/mupq/pqm4}.
 \bibitem{segatz} F. Segatz and M. I. Al Hafiz, ``Efficient implementation of
@@ -365,7 +365,7 @@ N. Dormann, ``Stable-Baselines3: Reliable reinforcement learning
 implementations,'' \emph{JMLR}, vol. 22, no. 268, pp. 1--8, 2021.
 \bibitem{gymnasium} M. Towers \emph{et al.}, ``Gymnasium: A standard interface for
 reinforcement learning environments,'' in Proc. NeurIPS Datasets and
-Benchmarks Track, 2025. arXiv:2407.17032.
+Benchmarks Track, 2025, doi: 10.52202/085713-4916. arXiv:2407.17032.
 \bibitem{attack} B. E. Strom \emph{et al.}, ``MITRE ATT\&CK: Design and
 Philosophy,'' MITRE Tech. Rep., 2018.
 \bibitem{honeyiot} C. Guan, H. Liu, G. Cao, S. Zhu, and T. La Porta, ``HoneyIoT:
