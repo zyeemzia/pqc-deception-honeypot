@@ -24,7 +24,7 @@ each incoming request either to a real ML-KEM-768 service running on an ESP32
 microcontroller or to a decoy whose compute timing is calibrated to measurements
 from that device. We measure ML-KEM-768 on the ESP32 (240\,MHz, portable C):
 8.17\,ms key generation, 9.39\,ms encapsulation and 11.15\,ms decapsulation with a
-15.1\,KB peak stack ($n=100$), and 100 end-to-end WiFi handshakes with key
+14.7\,KiB peak stack ($n=100$), and 100 end-to-end WiFi handshakes with key
 confirmation. These measurements parameterise a Gymnasium environment with five
 attacker profiles and mixed legitimate traffic. Across five seeds and 200 held-out
 episodes each, a QR-DQN defender deflects 98.6\% of reconnaissance requests
@@ -71,14 +71,16 @@ and an attacker-behaviour classifier.
 \section{Related Work}
 \textbf{ML-KEM on constrained devices.} The pqm4 framework~\cite{pqm4} is the
 de facto platform for benchmarking post-quantum schemes on Arm Cortex-M4
-microcontrollers. On the ESP32, Azevedo \emph{et al.}~\cite{azevedo} selectively
+microcontrollers. On the ESP32, Segatz and Al Hafiz~\cite{segatz} accelerate
+the pre-standard CRYSTALS-Kyber by exploiting the chip's dual-core architecture
+and hardware accelerators, and Azevedo \emph{et al.}~\cite{azevedo} selectively
 parallelise ML-KEM-512 across the chip's two cores, reducing the total
 KeyGen+Encaps+Decaps time from 27.7\,ms to 19.6\,ms (about 1.41$\times$). Nagy
 \emph{et al.}~\cite{nagy} report that their attempts to run ML-KEM on ESP32 and
 other microcontroller boards were unsuccessful due to memory constraints, and
 benchmark on a Raspberry Pi 4B instead. In contrast, we run the portable PQClean
 ML-KEM-768 implementation on an ESP32 in a dedicated task with an enlarged stack
-and report its measured peak stack (15.1\,KB). Our measurements are a baseline
+and report its measured peak stack (14.7\,KiB). Our measurements are a baseline
 cost for the defender, not an optimisation contribution, and we do not claim to be
 the first to run ML-KEM on this platform.
 
@@ -129,7 +131,7 @@ ML-KEM-768 measurement and served the real gateway.}
 \subsection{On-device cost}
 Table~\ref{tab:hw} reports 100 consecutive KeyGen/Encaps/Decaps runs at
 240\,MHz with WiFi disabled. All runs produced matching shared secrets. Peak
-stack usage was 15{,}096 bytes and free heap never fell below 291{,}448 bytes.
+stack usage was 15{,}096 bytes (14.7\,KiB) and free heap never fell below 291{,}448 bytes.
 The peak stack alone exceeds the $\sim$10\,KiB RAM of an RFC~7228 Class-1
 device~\cite{rfc7228}, which motivates placing the adaptive defender at the
 gateway rather than on end nodes.
@@ -153,7 +155,8 @@ Decaps & 11.150 & 0.030 & 11.133 & 11.247 \\
 With the ESP32 as server on a shared 2.4\,GHz institutional WLAN and a laptop
 client performing encapsulation with kyber-py, all 100 handshakes passed key
 confirmation. On-device KeyGen and Decaps were $8.64\pm0.03$\,ms and
-$11.60\pm0.03$\,ms. Total handshake time had a median of 320.8\,ms (mean
+$11.60\pm0.03$\,ms, about 0.45\,ms higher than in Table~\ref{tab:hw},
+where WiFi was disabled. Total handshake time had a median of 320.8\,ms (mean
 1249.8\,ms, 90th percentile 3332.7\,ms), and 25/100 handshakes exceeded 1\,s:
 latency was dominated by the wireless link rather than by ML-KEM computation.
 
@@ -231,7 +234,9 @@ outperforms the static rule in return ($p<0.0001$) and recon deflection
 (98.6\% vs 76.0\%, $p=0.0001$), captures more downgrade attempts (42.7\% vs
 32.2\%), and keeps attackers engaged for 15.6 vs 4.1 steps, largely by using the
 high-fidelity decoy: the static rule's low-fidelity decoy is detected in almost
-every episode (0.999 detections per episode). Measured over all held-out
+every episode (0.999 detections per episode).
+
+Measured over all held-out
 episodes, QR-DQN sends 95.7\% of attacker requests to the high-fidelity decoy and
 keeps 98.5\% of legitimate requests on the real service (0.9\% are throttled and
 0.6\% misrouted to a decoy). The cost is a 0.6\%
@@ -340,6 +345,8 @@ Constrained-Node Networks,'' RFC 7228, IETF, May 2014.
 Proc. IEEE EuroS\&P Workshops (SSR), 2022. IACR ePrint 2022/337.
 \bibitem{pqm4} M. J. Kannwischer \emph{et al.}, ``pqm4: Post-quantum crypto
 library for the ARM Cortex-M4,'' \url{https://github.com/mupq/pqm4}.
+\bibitem{segatz} F. Segatz and M. I. Al Hafiz, ``Efficient implementation of
+CRYSTALS-KYBER key encapsulation mechanism on ESP32,'' arXiv:2503.10207, 2025.
 \bibitem{azevedo} B. L. Azevedo, V. Lagrota, and M. V. Ribeiro, ``Multicore
 implementation of ML-KEM on embedded devices,'' in Proc. 25th Simp\'osio
 Brasileiro de Ciberseguran\c{c}a (SBSeg), 2025, pp. 659--675,
