@@ -146,3 +146,9 @@ See `CITATION.cff`, or use GitHub's "Cite this repository" button.
 ML-KEM implementation from [PQClean](https://github.com/PQClean/PQClean); client-side
 ML-KEM from [kyber-py](https://github.com/GiacomoPope/kyber-py); RL from
 Stable-Baselines3 / SB3-Contrib; environment API from Gymnasium.
+
+## License
+
+This project is released under the MIT License (see LICENSE).
+Files in `firmware/src` derived from PQClean remain under their original
+licenses; see THIRD-PARTY-NOTICES.
