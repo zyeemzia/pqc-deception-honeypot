@@ -1,5 +1,8 @@
 # RL-Adaptive Deception for Post-Quantum IoT Gateways
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24030629.svg)](https://doi.org/10.5281/zenodo.24030629)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A reinforcement-learning defender that decides, request by request, whether to send
 traffic to a **real ML-KEM-768 (FIPS 203) service running on an ESP32** or to a
 **timing-calibrated decoy**, in order to deflect reconnaissance, capture downgrade
@@ -22,7 +25,7 @@ attempts, and absorb handshake floods, while keeping legitimate clients on the r
 - **Robustness:** QR-DQN beat the static rule in 15/15 runs when reward weights,
   decoy-detection probabilities, or traffic mix were changed by ±50% (`eval/sensitivity_table.md`).
 - **Real hardware:** ML-KEM-768 on the ESP32 at 240 MHz takes 8.17 ms KeyGen, 9.39 ms Encaps,
-  11.15 ms Decaps (n = 100) with a 15.1 KB peak stack (`docs/hardware_measurements.md`).
+  11.15 ms Decaps (n = 100) with a 14.7 KiB (15,096-byte) peak stack (`docs/hardware_measurements.md`).
 
 ![Policy comparison](figures/policy_comparison.png)
 
@@ -139,7 +142,13 @@ Seeds: 42, 123, 456, 789, 1024. Evaluation episodes use seeds disjoint from trai
 
 ## Citation
 
-See `CITATION.cff`, or use GitHub's "Cite this repository" button.
+Zia, Z. B. (2026). *RL-Adaptive Deception for Protecting Post-Quantum IoT Gateways
+from Reconnaissance and Downgrade Attacks* (v1.0.0) [Software and data]. Zenodo.
+https://doi.org/10.5281/zenodo.24030629
+
+The DOI above always resolves to the latest version; v1.0.0 specifically is
+[10.5281/zenodo.24030630](https://doi.org/10.5281/zenodo.24030630).
+See also `CITATION.cff`, or use GitHub's "Cite this repository" button.
 
 ## Acknowledgements
 
