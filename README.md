@@ -143,11 +143,12 @@ Seeds: 42, 123, 456, 789, 1024. Evaluation episodes use seeds disjoint from trai
 ## Citation
 
 Zia, Z. B. (2026). *RL-Adaptive Deception for Protecting Post-Quantum IoT Gateways
-from Reconnaissance and Downgrade Attacks* (v1.0.0) [Software and data]. Zenodo.
+from Reconnaissance and Downgrade Attacks* [Software and data]. Zenodo.
 https://doi.org/10.5281/zenodo.24030629
 
-The DOI above always resolves to the latest version; v1.0.0 specifically is
-[10.5281/zenodo.24030630](https://doi.org/10.5281/zenodo.24030630).
+The DOI above always resolves to the latest version. Specific versions:
+v1.0.1 [10.5281/zenodo.24273540](https://doi.org/10.5281/zenodo.24273540),
+v1.0.0 [10.5281/zenodo.24030630](https://doi.org/10.5281/zenodo.24030630).
 See also `CITATION.cff`, or use GitHub's "Cite this repository" button.
 
 ## Acknowledgements
