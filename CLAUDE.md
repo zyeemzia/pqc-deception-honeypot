@@ -18,8 +18,8 @@ Author and only contributor: Zyeem Bin Zia (GitHub: zyeemzia). Commit as `zyeemz
 - `rl-env/pqc_deception_env.py` — letter environment (keep unchanged; extension subclasses it).
 - `extended/experiments.py` — the experiment grid (seeds, steps, algos, envs). Change numbers only here.
 - `extended/train_all.py` — training (`--all` resumes, skipping existing models).
-- `extended/evaluate_all.py` — cross-evaluation → `extended/results/episodes.csv` (TODO).
-- `extended/analysis.py` — stats, LaTeX tables, figures (TODO).
+- `extended/evaluate_all.py` — cross-evaluation → `extended/results/episodes.csv` (done; baselines tested).
+- `extended/analysis.py` — stats, LaTeX tables, figures (done; tested on baseline output).
 - `extended/hardware/` — energy/serial log parsers (TODO).
 
 ## Machine
@@ -29,3 +29,10 @@ Laptop: i7-6500U, 2 cores, CPU only → `torch.set_num_threads(2)`. Full grid is
 - Every number in the paper must come from a CSV produced by these scripts. Never invent results.
 - Keep observation/action spaces identical to the base env so cross-evaluation works.
 - Verify references before citing (see reference-verification practice used for the letter).
+
+## Open issues / next tasks
+1. Smoke-test training: `python extended/train_all.py --algo qrdqn --env adaptive --seed 42 --steps 20000`, then `evaluate_all.py --episodes 20` and `analysis.py`.
+2. Modelling check: in `adaptive`, source rotation currently gives the defender MORE reward (extra decoy engagement), so `no_rotation` scores lower than `adaptive`. Decide whether a rotated attacker should cost the defender (e.g. a penalty per rotation or a fresh recon phase) and justify the choice in the paper.
+3. `extended/hardware/`: INA219 energy-per-handshake logger + parser; ESP32-S3 benchmark.
+4. Paper: `extended/paper/` IEEE journal template (IEEEtran journal), outline, verified related work (30–40 refs).
+5. `extended/results/` and `extended/models/` are git-ignored; commit only final CSV/figures used in the paper.

@@ -5,3 +5,7 @@ firmware/src/secrets.h
 third_party/
 __pycache__/
 *.pyc
+
+# journal extension outputs
+extended/models/
+extended/results/
